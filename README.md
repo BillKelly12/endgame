@@ -1,12 +1,32 @@
-# React + Vite
+# Assembly: Endgame (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small **hangman-style** game: guess the word within **8 attempts**. Each wrong guess “loses” a language chip; win triggers confetti 🎉 and a **New Game** button.
 
-Currently, two official plugins are available:
+## How it works
+- Picks a random word on start (`getWord()`), stores **guessed letters** in state.
+- **Win** when every letter is revealed; **lose** after 8 wrong guesses  
+  *(attempts are derived from `languages.length - 1`)*.
+- On-screen keyboard adds letters; button disables when game is over.
+- Accessibility: status updates via `aria-live`; celebratory confetti on win.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech
+- React + Vite
+- `clsx` for conditional classes
+- `react-confetti` for the win effect
+- Components: `Chip`, `CurrentWord`, `KeyBoard`
+- Utilities: `languages` (chips), `getFarewellText`, `getWord`
 
-## Expanding the ESLint configuration
+## Scripts
+```bash
+npm install
+npm run dev
+npm run build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Deploy
+Static hosting (e.g. Netlify).  
+Build: `npm run build` → publish `dist/`.
+
+## Notes
+- New game resets the word and guessed letters.
+- Chips visually track remaining attempts (based on `languages` order).
